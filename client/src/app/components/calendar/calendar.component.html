@@ -1,0 +1,9 @@
+<p>calendar works!</p>
+test
+<mat-card class="demo-inline-calendar-card">
+  <mat-calendar [(selected)]="selected" (click)="chooseLessonDate()"></mat-calendar>
+</mat-card>
+<p>Selected date: {{selected()}}</p>
+@if(showLessonDate()) {
+  <p>On the {{showLessonDate()}} it was:</p>
+}
