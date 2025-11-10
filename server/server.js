@@ -7,6 +7,8 @@ const app = express();
 const PORT = 3000;
 const DATA_FILE = path.join(__dirname, 'data', 'items.json');
 
+const PDFDocument = require('pdfkit');
+
 // Middleware
 app.use(cors()); // Allow cross-origin requests from Angular client
 app.use(express.json()); // To parse incoming JSON requests (POST, PUT)
@@ -73,7 +75,22 @@ app.post('/add-user', (req, res) => {
   });
 });
 
-// Start the server
+app.post('/generate-pdf1', (req, res) => {
+  console.log("🔥 /generate-pdf endpoint hit!", req.body);
+});
+
+app.post('/generate-pdf', (req, res) => {
+  const doc = new PDFDocument();
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'attachment; filename="example.pdf"');
+  // ✅ Pipe *before* writing
+  doc.pipe(res);
+  // PDF Content
+  doc.fontSize(22).text(`Hello ${req.body.name}, you pay ${req.body.monthPrice} euros for ${req.body.monthInput}`, 100, 100);
+  // ✅ End PDF properly
+  doc.end();
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

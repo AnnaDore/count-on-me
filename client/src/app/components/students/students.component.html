@@ -1,2 +1,6 @@
-students work
-<app-calendar></app-calendar>
+1 lesson = 20 euros
+<br>
+<input id="name" placeholder="Enter the name" [(ngModel)]="nameInput">
+<input id="amount" placeholder="Put amount of the classes" [(ngModel)]="amountInput">
+<input id="month" placeholder="Put month" [(ngModel)]="monthInput">
+<button (click)="generatePdf()">Download PDF</button>
